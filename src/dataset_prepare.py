@@ -12,7 +12,7 @@ def atoi(s):
     return n
 
 # making folders
-outer_names = ['test','train']
+outer_names = ['test','test']
 inner_names = ['angry', 'disgusted', 'fearful', 'happy', 'sad', 'surprised', 'neutral']
 os.makedirs('data', exist_ok=True)
 for outer_name in outer_names:
@@ -53,28 +53,28 @@ for i in tqdm(range(len(df))):
 
     img = Image.fromarray(mat)
 
-    # train
+    # test
     if i < 28709:
         if df['emotion'][i] == 0:
-            img.save('train/angry/im'+str(angry)+'.png')
+            img.save('test/angry/im'+str(angry)+'.png')
             angry += 1
         elif df['emotion'][i] == 1:
-            img.save('train/disgusted/im'+str(disgusted)+'.png')
+            img.save('test/disgusted/im'+str(disgusted)+'.png')
             disgusted += 1
         elif df['emotion'][i] == 2:
-            img.save('train/fearful/im'+str(fearful)+'.png')
+            img.save('test/fearful/im'+str(fearful)+'.png')
             fearful += 1
         elif df['emotion'][i] == 3:
-            img.save('train/happy/im'+str(happy)+'.png')
+            img.save('test/happy/im'+str(happy)+'.png')
             happy += 1
         elif df['emotion'][i] == 4:
-            img.save('train/sad/im'+str(sad)+'.png')
+            img.save('test/sad/im'+str(sad)+'.png')
             sad += 1
         elif df['emotion'][i] == 5:
-            img.save('train/surprised/im'+str(surprised)+'.png')
+            img.save('test/surprised/im'+str(surprised)+'.png')
             surprised += 1
         elif df['emotion'][i] == 6:
-            img.save('train/neutral/im'+str(neutral)+'.png')
+            img.save('test/neutral/im'+str(neutral)+'.png')
             neutral += 1
 
     # test

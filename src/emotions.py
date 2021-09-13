@@ -13,7 +13,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # command line argument
 ap = argparse.ArgumentParser()
-ap.add_argument("--mode",help="train/display")
+ap.add_argument("--mode",help="test/display")
 mode = ap.parse_args().mode
 
 # plots accuracy and loss curves
@@ -29,7 +29,7 @@ def plot_model_history(model_history):
     axs[0].set_ylabel('Accuracy')
     axs[0].set_xlabel('Epoch')
     axs[0].set_xticks(np.arange(1,len(model_history.history['accuracy'])+1),len(model_history.history['accuracy'])/10)
-    axs[0].legend(['train', 'val'], loc='best')
+    axs[0].legend(['test', 'val'], loc='best')
     # summarize history for loss
     axs[1].plot(range(1,len(model_history.history['loss'])+1),model_history.history['loss'])
     axs[1].plot(range(1,len(model_history.history['val_loss'])+1),model_history.history['val_loss'])
@@ -37,12 +37,12 @@ def plot_model_history(model_history):
     axs[1].set_ylabel('Loss')
     axs[1].set_xlabel('Epoch')
     axs[1].set_xticks(np.arange(1,len(model_history.history['loss'])+1),len(model_history.history['loss'])/10)
-    axs[1].legend(['train', 'val'], loc='best')
+    axs[1].legend(['test', 'val'], loc='best')
     fig.savefig('plot.png')
     plt.show()
 
 # Define data generators
-train_dir = 'data/train'
+train_dir = 'data/test'
 val_dir = 'data/test'
 
 num_train = 28709
@@ -86,8 +86,8 @@ model.add(Dense(1024, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(7, activation='softmax'))
 
-# If you want to train the same model or try other models, go for this
-if mode == "train":
+# If you want to test the same model or try other models, go for this
+if mode == "test":
     model.compile(loss='categorical_crossentropy',optimizer=Adam(lr=0.0001, decay=1e-6),metrics=['accuracy'])
     model_info = model.fit_generator(
             train_generator,
@@ -109,7 +109,7 @@ elif mode == "display":
     emotion_dict = {0: "Angry", 1: "Disgusted", 2: "Fearful", 3: "Happy", 4: "Neutral", 5: "Sad", 6: "Surprised"}
 
     # start the webcam feed
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture("/Users/kevin.staunton-lambert/vids/kev_happy_sad.mp4")
     while True:
         # Find haar cascade to draw bounding box around face
         ret, frame = cap.read()
